@@ -3,350 +3,367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports - Grace Community Church</title>
+    <title>Reports - TFMJCCM CHURCH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="bg-gray-50">
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        <div class="bg-white shadow-lg w-64 flex-shrink-0" id="sidebar">
-            <div class="p-6">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <i class="fas fa-church text-2xl text-blue-600"></i>
-                    <span class="ml-2 text-xl font-bold text-gray-900">Grace Church</span>
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-church text-2xl text-blue-600"></i>
+                        <span class="ml-2 text-xl font-bold text-gray-900">TFMJCCM CHURCH</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="super-admin-dashboard.html" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                    <button onclick="app.authManager.logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Reports & Analytics</h1>
+                <p class="text-gray-600">Generate comprehensive reports and track church growth</p>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="exportReport()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                    <i class="fas fa-download mr-2"></i>Export Report
+                </button>
+                <button onclick="generateReport()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                    <i class="fas fa-chart-bar mr-2"></i>Generate Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Report Filters -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Report Filters</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Report Type</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="attendance">Attendance Report</option>
+                        <option value="members">Member Report</option>
+                        <option value="growth">Growth Report</option>
+                        <option value="ministry">Ministry Report</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="last_week">Last Week</option>
+                        <option value="last_month">Last Month</option>
+                        <option value="last_quarter">Last Quarter</option>
+                        <option value="last_year">Last Year</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Ministry</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">All Ministries</option>
+                        <option value="worship">Worship</option>
+                        <option value="youth">Youth</option>
+                        <option value="children">Children</option>
+                        <option value="outreach">Outreach</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Format</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                        <option value="csv">CSV</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Total Members</p>
+                        <p class="text-2xl font-bold text-gray-900">1,247</p>
+                        <p class="text-sm text-green-600">+12.5% from last month</p>
+                    </div>
                 </div>
             </div>
             
-            <nav class="mt-8">
-                <div class="px-6 space-y-2">
-                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
-                        <i class="fas fa-tachometer-alt mr-3"></i>
-                        Dashboard
-                    </a>
-                    <a href="attendance.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
-                        <i class="fas fa-calendar-check mr-3"></i>
-                        Attendance
-                    </a>
-                    <a href="announcements.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
-                        <i class="fas fa-bullhorn mr-3"></i>
-                        Announcements
-                    </a>
-                    <a href="members.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
-                        <i class="fas fa-users mr-3"></i>
-                        Members
-                    </a>
-                    <a href="reports.html" class="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md">
-                        <i class="fas fa-chart-bar mr-3"></i>
-                        Reports
-                    </a>
-                </div>
-            </nav>
-            
-            <div class="absolute bottom-0 w-64 p-6">
+            <div class="bg-white rounded-lg shadow-lg p-6">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user text-white text-sm"></i>
-                        </div>
+                    <div class="p-3 rounded-full bg-green-100 text-green-600">
+                        <i class="fas fa-calendar-check text-2xl"></i>
                     </div>
-                    <div class="ml-3">
-                        <p class="text-sm font-medium text-gray-900">John Doe</p>
-                        <p class="text-xs text-gray-500">Administrator</p>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Average Attendance</p>
+                        <p class="text-2xl font-bold text-gray-900">892</p>
+                        <p class="text-sm text-green-600">+8.3% from last month</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                        <i class="fas fa-percentage text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Attendance Rate</p>
+                        <p class="text-2xl font-bold text-gray-900">71.5%</p>
+                        <p class="text-sm text-green-600">+2.1% from last month</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Growth Rate</p>
+                        <p class="text-2xl font-bold text-gray-900">+12.5%</p>
+                        <p class="text-sm text-green-600">+3.2% from last month</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- Top Navigation -->
-            <header class="bg-white shadow-sm border-b border-gray-200">
-                <div class="flex items-center justify-between px-6 py-4">
-                    <div class="flex items-center">
-                        <button id="sidebarToggle" class="text-gray-500 hover:text-gray-600 lg:hidden">
-                            <i class="fas fa-bars text-xl"></i>
-                        </button>
-                        <h1 class="ml-4 text-2xl font-semibold text-gray-900">Reports</h1>
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Attendance Trend Chart -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Attendance Trend</h3>
+                <canvas id="attendanceChart" width="400" height="200"></canvas>
+            </div>
+            
+            <!-- Ministry Distribution Chart -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Ministry Distribution</h3>
+                <canvas id="ministryChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Detailed Reports -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Detailed Reports</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 rounded-full bg-blue-100">
+                            <i class="fas fa-calendar-check text-blue-600"></i>
+                        </div>
+                        <h3 class="ml-3 font-semibold text-gray-900">Weekly Attendance</h3>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                            <i class="fas fa-download mr-2"></i>Export All
-                        </button>
-                        <button class="text-gray-500 hover:text-gray-600">
-                            <i class="fas fa-bell text-xl"></i>
-                        </button>
-                        <button class="text-gray-500 hover:text-gray-600">
-                            <i class="fas fa-cog text-xl"></i>
-                        </button>
-                        <a href="index.html" class="text-gray-500 hover:text-gray-600">
-                            <i class="fas fa-sign-out-alt text-xl"></i>
-                        </a>
-                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Track attendance patterns over the past 12 weeks</p>
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        Generate Report
+                    </button>
                 </div>
-            </header>
-
-            <!-- Reports Content -->
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
-                <div class="container mx-auto px-6 py-8">
-                    <!-- Report Filters -->
-                    <div class="bg-white rounded-lg shadow p-6 mb-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Generate Report</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Report Type</label>
-                                <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                    <option>Attendance Report</option>
-                                    <option>Member Report</option>
-                                    <option>Ministry Report</option>
-                                    <option>Financial Report</option>
-                                    <option>Event Report</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Date From</label>
-                                <input type="date" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" value="2024-01-01">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Date To</label>
-                                <input type="date" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" value="2024-12-31">
-                            </div>
+                
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 rounded-full bg-green-100">
+                            <i class="fas fa-user-plus text-green-600"></i>
                         </div>
-                        <div class="mt-4 flex items-center space-x-4">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                <i class="fas fa-chart-line mr-2"></i>Generate Report
-                            </button>
-                            <button class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                <i class="fas fa-refresh mr-2"></i>Reset Filters
-                            </button>
-                        </div>
+                        <h3 class="ml-3 font-semibold text-gray-900">New Member Growth</h3>
                     </div>
-
-                    <!-- Quick Export Options -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition duration-200">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-users text-blue-600 text-xl"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <h3 class="text-lg font-medium text-gray-900">Member List</h3>
-                                    <p class="text-sm text-gray-500">Export all members</p>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <i class="fas fa-download mr-2"></i>Export Excel
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition duration-200">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-calendar-check text-green-600 text-xl"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <h3 class="text-lg font-medium text-gray-900">Attendance</h3>
-                                    <p class="text-sm text-gray-500">Export attendance data</p>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <button class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <i class="fas fa-download mr-2"></i>Export Excel
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition duration-200">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-chart-pie text-purple-600 text-xl"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <h3 class="text-lg font-medium text-gray-900">Statistics</h3>
-                                    <p class="text-sm text-gray-500">Export church statistics</p>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <button class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <i class="fas fa-download mr-2"></i>Export Excel
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition duration-200">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-bullhorn text-orange-600 text-xl"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <h3 class="text-lg font-medium text-gray-900">Announcements</h3>
-                                    <p class="text-sm text-gray-500">Export announcements</p>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <button class="w-full bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                    <i class="fas fa-download mr-2"></i>Export Excel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sample Export Data Table -->
-                    <div class="bg-white rounded-lg shadow">
-                        <div class="px-6 py-4 border-b border-gray-200">
-                            <div class="flex items-center justify-between">
-                                <h3 class="text-lg font-medium text-gray-900">Sample Export Data</h3>
-                                <div class="flex items-center space-x-4">
-                                    <span class="text-sm text-gray-500">Last updated: Dec 15, 2024</span>
-                                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                                        <i class="fas fa-download mr-2"></i>Download Sample
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Member Name</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ministry</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attendance Rate</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Attendance</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">John Smith</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">john.smith@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                                Worship
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">95%</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dec 15, 2024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Sarah Johnson</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">sarah.johnson@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Youth
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">88%</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dec 15, 2024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Michael Chen</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">michael.chen@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                                Children
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">92%</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dec 8, 2024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                                Absent
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Emily Rodriguez</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">emily.rodriguez@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                                                Outreach
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">85%</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dec 15, 2024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Active
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">David Wilson</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">david.wilson@email.com</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                                Administration
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">78%</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dec 1, 2024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                Inactive
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <!-- Export Summary -->
-                        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-blue-600">247</div>
-                                    <div class="text-sm text-gray-500">Total Members</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-green-600">342</div>
-                                    <div class="text-sm text-gray-500">Present Today</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-yellow-600">89</div>
-                                    <div class="text-sm text-gray-500">Absent Today</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-2xl font-bold text-purple-600">23</div>
-                                    <div class="text-sm text-gray-500">New Visitors</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Analyze new member registration trends</p>
+                    <button class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        Generate Report
+                    </button>
                 </div>
-            </main>
+                
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 rounded-full bg-purple-100">
+                            <i class="fas fa-church text-purple-600"></i>
+                        </div>
+                        <h3 class="ml-3 font-semibold text-gray-900">Ministry Performance</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Compare performance across different ministries</p>
+                    <button class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        Generate Report
+                    </button>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 rounded-full bg-yellow-100">
+                            <i class="fas fa-chart-bar text-yellow-600"></i>
+                        </div>
+                        <h3 class="ml-3 font-semibold text-gray-900">Service Analytics</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Detailed analysis of service attendance and engagement</p>
+                    <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        Generate Report
+                    </button>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 rounded-full bg-red-100">
+                            <i class="fas fa-exclamation-triangle text-red-600"></i>
+                        </div>
+                        <h3 class="ml-3 font-semibold text-gray-900">Member Retention</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Identify members at risk of becoming inactive</p>
+                    <button class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        Generate Report
+                    </button>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200">
+                    <div class="flex items-center mb-3">
+                        <div class="p-2 rounded-full bg-indigo-100">
+                            <i class="fas fa-calendar-alt text-indigo-600"></i>
+                        </div>
+                        <h3 class="ml-3 font-semibold text-gray-900">Seasonal Trends</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Analyze attendance patterns throughout the year</p>
+                    <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-200">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Reports -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Recent Reports</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Report Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Generated</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Weekly Attendance Report</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">PDF</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-15 10:30 AM</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <button class="text-blue-600 hover:text-blue-900 mr-3">Download</button>
+                                <button class="text-red-600 hover:text-red-900">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Member Growth Analysis</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Excel</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-14 2:15 PM</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <button class="text-blue-600 hover:text-blue-900 mr-3">Download</button>
+                                <button class="text-red-600 hover:text-red-900">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ministry Performance Report</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">PDF</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2024-12-13 9:45 AM</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Processing</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <button class="text-gray-400 cursor-not-allowed mr-3">Download</button>
+                                <button class="text-red-600 hover:text-red-900">Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    
+    <script src="app.js"></script>
+    <script>
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Attendance Trend Chart
+            const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+            new Chart(attendanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Attendance',
+                        data: [850, 920, 880, 950, 900, 892],
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Ministry Distribution Chart
+            const ministryCtx = document.getElementById('ministryChart').getContext('2d');
+            new Chart(ministryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Worship', 'Youth', 'Children', 'Outreach', 'Administration'],
+                    datasets: [{
+                        data: [35, 25, 20, 15, 5],
+                        backgroundColor: [
+                            'rgb(59, 130, 246)',
+                            'rgb(16, 185, 129)',
+                            'rgb(245, 158, 11)',
+                            'rgb(239, 68, 68)',
+                            'rgb(139, 92, 246)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+
+        function exportReport() {
+            alert('Report exported successfully!');
+        }
+        
+        function generateReport() {
+            alert('Report generation started!');
+        }
+    </script>
 </body>
 </html>

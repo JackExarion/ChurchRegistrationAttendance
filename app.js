@@ -37,7 +37,7 @@ class ChurchApp {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grace Community Church - Registration & Attendance</title>
+    <title>TFMJCCM CHURCH - Registration & Attendance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,7 +51,7 @@ class ChurchApp {
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <i class="fas fa-church text-2xl text-blue-600"></i>
-                        <span class="ml-2 text-xl font-bold text-gray-900">Grace Community Church</span>
+                        <span class="ml-2 text-xl font-bold text-gray-900">TFMJCCM CHURCH</span>
                     </div>
                 </div>
                 <div class="hidden md:block">
@@ -74,7 +74,7 @@ class ChurchApp {
     <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to Grace Community Church</h1>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to TFMJCCM CHURCH</h1>
                 <p class="text-xl md:text-2xl mb-8 text-blue-100">Growing together in faith, love, and service</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="#" onclick="app.showRegister()" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-200">Join Our Community</a>
@@ -172,7 +172,7 @@ class ChurchApp {
                 <div>
                     <div class="flex items-center mb-4">
                         <i class="fas fa-church text-2xl text-blue-400"></i>
-                        <span class="ml-2 text-xl font-bold">Grace Community Church</span>
+                        <span class="ml-2 text-xl font-bold">TFMJCCM CHURCH</span>
                     </div>
                     <p class="text-gray-400">Growing together in faith, love, and service to our community.</p>
                 </div>
@@ -195,7 +195,7 @@ class ChurchApp {
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 Grace Community Church. All rights reserved.</p>
+                <p>&copy; 2024 TFMJCCM CHURCH. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -204,23 +204,23 @@ class ChurchApp {
 
             // Login Modal
             loginModal: `
-<div id="loginModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+<div id="loginModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
         <div class="mt-3">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-medium text-gray-900">Login</h3>
+                <h3 class="text-lg font-medium text-gray-900">Login to Your Account</h3>
                 <button onclick="app.hideLogin()" class="text-gray-400 hover:text-gray-600">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <form id="loginForm" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your email">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your password">
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -244,11 +244,11 @@ class ChurchApp {
 
             // Register Modal
             registerModal: `
-<div id="registerModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+<div id="registerModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
     <div class="relative top-10 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white">
         <div class="mt-3">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-medium text-gray-900">Register</h3>
+                <h3 class="text-lg font-medium text-gray-900">Join Our Church Community</h3>
                 <button onclick="app.hideRegister()" class="text-gray-400 hover:text-gray-600">
                     <i class="fas fa-times"></i>
                 </button>
@@ -257,20 +257,20 @@ class ChurchApp {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">First Name</label>
-                        <input type="text" name="firstName" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="firstName" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your first name">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <input type="text" name="lastName" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="lastName" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your last name">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your email">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Phone</label>
-                    <input type="tel" name="phone" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input type="tel" name="phone" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your phone number">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -296,16 +296,16 @@ class ChurchApp {
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Create a password">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input type="password" name="confirmPassword" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="password" name="confirmPassword" required class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Confirm your password">
                 </div>
                 <div class="flex items-center">
                     <input type="checkbox" required class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                     <label class="ml-2 block text-sm text-gray-900">
-                        I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms and Conditions</a>
+                        I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms and Conditions</a> and <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
                     </label>
                 </div>
                 <div class="flex items-center justify-end space-x-3">
@@ -776,43 +776,21 @@ class AuthManager {
         return [
             {
                 id: 1,
-                name: 'John Smith',
-                email: 'superadmin@gracechurch.com',
+                name: 'King Influence',
+                email: 'kingeninfluence@gmail.com',
                 password: 'admin123',
                 role: this.roles.SUPER_ADMIN,
                 ministry: 'Administration',
                 status: 'active',
-                joinDate: '2020-01-15'
-            },
-            {
-                id: 2,
-                name: 'Sarah Johnson',
-                email: 'admin@gracechurch.com',
-                password: 'admin123',
-                role: this.roles.ADMIN,
-                ministry: 'Youth',
-                status: 'active',
-                joinDate: '2021-03-20'
-            },
-            {
-                id: 3,
-                name: 'Michael Chen',
-                email: 'member@gracechurch.com',
-                password: 'member123',
-                role: this.roles.MEMBER,
-                ministry: 'Worship',
-                status: 'active',
-                joinDate: '2022-06-10'
-            },
-            {
-                id: 4,
-                name: 'Emily Rodriguez',
-                email: 'emily@gracechurch.com',
-                password: 'member123',
-                role: this.roles.MEMBER,
-                ministry: 'Outreach',
-                status: 'active',
-                joinDate: '2023-01-05'
+                joinDate: '2024-01-01',
+                firstName: 'King',
+                lastName: 'Influence',
+                phone: '+1 (555) 123-4567',
+                address: '123 Church Street, City, State 12345',
+                emergencyContact: 'Jane Influence',
+                emergencyPhone: '+1 (555) 987-6543',
+                dateOfBirth: '1990-01-15',
+                maritalStatus: 'Married'
             }
         ];
     }
