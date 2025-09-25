@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - Grace Community Church</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-white shadow-lg w-64 flex-shrink-0" id="sidebar">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <i class="fas fa-church text-2xl text-blue-600"></i>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Grace Church</span>
+                </div>
+                <div class="mt-2">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-user mr-1"></i>Member
+                    </span>
+                </div>
+            </div>
+            
+            <nav class="mt-8">
+                <div class="px-6 space-y-2">
+                    <a href="member-dashboard.html" class="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a href="my-profile.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-user mr-3"></i>
+                        My Profile
+                    </a>
+                    <a href="my-attendance.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-calendar-check mr-3"></i>
+                        My Attendance
+                    </a>
+                    <a href="announcements.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-bullhorn mr-3"></i>
+                        Announcements
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="absolute bottom-0 w-64 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900" id="userName">Michael Chen</p>
+                        <p class="text-xs text-gray-500">Member</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
+                        <button id="sidebarToggle" class="text-gray-500 hover:text-gray-600 lg:hidden">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h1 class="ml-4 text-2xl font-semibold text-gray-900">Member Dashboard</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-bell text-xl"></i>
+                        </button>
+                        <button onclick="window.authManager.logout()" class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-sign-out-alt text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+                <div class="container mx-auto px-6 py-8">
+                    <!-- Welcome Section -->
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg p-6 mb-8">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h2 class="text-2xl font-bold" id="welcomeName">Welcome, Michael Chen!</h2>
+                                <p class="text-blue-100">Member since June 2022 • Worship Ministry</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-calendar-check text-green-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Attendance Rate</p>
+                                    <p class="text-2xl font-semibold text-gray-900">92%</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+5%</span>
+                                <span class="text-gray-500 text-sm">this month</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-calendar text-blue-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Days Attended</p>
+                                    <p class="text-2xl font-semibold text-gray-900">45</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-blue-600 text-sm font-medium">This year</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-hands-helping text-purple-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Ministry Events</p>
+                                    <p class="text-2xl font-semibold text-gray-900">12</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-purple-600 text-sm font-medium">Participated</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <!-- My Recent Attendance -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-900">My Recent Attendance</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                            <span class="text-sm font-medium text-gray-900">Sunday Service</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Dec 15, 2024</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                            <span class="text-sm font-medium text-gray-900">Worship Practice</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Dec 12, 2024</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                                            <span class="text-sm font-medium text-gray-900">Sunday Service</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Dec 8, 2024</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                            <span class="text-sm font-medium text-gray-900">Sunday Service</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Dec 1, 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Events -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-900">Upcoming Events</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-gift text-red-600"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-900">Christmas Service</p>
+                                            <p class="text-sm text-gray-500">Dec 24, 2024 • 6:00 PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-music text-green-600"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-900">Worship Practice</p>
+                                            <p class="text-sm text-gray-500">Dec 19, 2024 • 7:00 PM</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-users text-blue-600"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-900">Ministry Meeting</p>
+                                            <p class="text-sm text-gray-500">Dec 22, 2024 • 2:00 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <a href="my-profile.html" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition duration-200">
+                                <i class="fas fa-user text-blue-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">Update Profile</span>
+                            </a>
+                            <a href="my-attendance.html" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition duration-200">
+                                <i class="fas fa-calendar-check text-green-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">View Attendance</span>
+                            </a>
+                            <a href="announcements.html" class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-200">
+                                <i class="fas fa-bullhorn text-purple-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">Read Announcements</span>
+                            </a>
+                            <button class="flex items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition duration-200">
+                                <i class="fas fa-phone text-orange-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">Contact Church</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = window.authManager.getCurrentUser();
+            if (!user || !window.authManager.hasRole('member')) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Update user name in sidebar and welcome section
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('welcomeName').textContent = `Welcome, ${user.name}!`;
+        });
+    </script>
+</body>
+</html>

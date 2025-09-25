@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin Dashboard - Grace Community Church</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-white shadow-lg w-64 flex-shrink-0" id="sidebar">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <i class="fas fa-church text-2xl text-blue-600"></i>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Grace Church</span>
+                </div>
+                <div class="mt-2">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        <i class="fas fa-crown mr-1"></i>Super Admin
+                    </span>
+                </div>
+            </div>
+            
+            <nav class="mt-8">
+                <div class="px-6 space-y-2">
+                    <a href="super-admin-dashboard.html" class="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a href="user-management.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-users-cog mr-3"></i>
+                        User Management
+                    </a>
+                    <a href="members.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-users mr-3"></i>
+                        Members
+                    </a>
+                    <a href="attendance.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-calendar-check mr-3"></i>
+                        Attendance
+                    </a>
+                    <a href="announcements.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-bullhorn mr-3"></i>
+                        Announcements
+                    </a>
+                    <a href="reports.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-chart-bar mr-3"></i>
+                        Reports
+                    </a>
+                    <a href="system-settings.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-cog mr-3"></i>
+                        System Settings
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="absolute bottom-0 w-64 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900" id="userName">John Smith</p>
+                        <p class="text-xs text-gray-500">Super Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
+                        <button id="sidebarToggle" class="text-gray-500 hover:text-gray-600 lg:hidden">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h1 class="ml-4 text-2xl font-semibold text-gray-900">Super Admin Dashboard</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">System Status:</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <i class="fas fa-circle text-green-500 mr-1"></i>Online
+                            </span>
+                        </div>
+                        <button class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-bell text-xl"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-cog text-xl"></i>
+                        </button>
+                        <button onclick="window.authManager.logout()" class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-sign-out-alt text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+                <div class="container mx-auto px-6 py-8">
+                    <!-- System Overview Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-users text-blue-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Total Users</p>
+                                    <p class="text-2xl font-semibold text-gray-900">1,247</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+12%</span>
+                                <span class="text-gray-500 text-sm">from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-user-shield text-green-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Active Admins</p>
+                                    <p class="text-2xl font-semibold text-gray-900">8</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+2</span>
+                                <span class="text-gray-500 text-sm">this month</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-calendar-check text-purple-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Today's Attendance</p>
+                                    <p class="text-2xl font-semibold text-gray-900">342</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+8%</span>
+                                <span class="text-gray-500 text-sm">from last week</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-orange-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-exclamation-triangle text-orange-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">System Alerts</p>
+                                    <p class="text-2xl font-semibold text-gray-900">3</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-red-600 text-sm font-medium">2 new</span>
+                                <span class="text-gray-500 text-sm">today</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Management Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <!-- System Health -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">System Health</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Database Status</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check mr-1"></i>Healthy
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Server Load</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        <i class="fas fa-exclamation mr-1"></i>Medium
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Backup Status</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check mr-1"></i>Up to Date
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Security Status</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-shield-alt mr-1"></i>Secure
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent System Activity -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Recent System Activity</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-user-plus text-blue-600"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">New user registered</p>
+                                        <p class="text-sm text-gray-500">Sarah Johnson joined 2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-calendar-check text-green-600"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Attendance marked</p>
+                                        <p class="text-sm text-gray-500">342 members marked present today</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-bullhorn text-purple-600"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Announcement created</p>
+                                        <p class="text-sm text-gray-500">Christmas service schedule posted</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <a href="user-management.html" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition duration-200">
+                                <i class="fas fa-users-cog text-blue-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">Manage Users</span>
+                            </a>
+                            <a href="system-settings.html" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition duration-200">
+                                <i class="fas fa-cog text-green-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">System Settings</span>
+                            </a>
+                            <a href="reports.html" class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-200">
+                                <i class="fas fa-download text-purple-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">Export Data</span>
+                            </a>
+                            <a href="attendance.html" class="flex items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition duration-200">
+                                <i class="fas fa-calendar-check text-orange-600 mr-3"></i>
+                                <span class="text-sm font-medium text-gray-900">View Attendance</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = window.authManager.getCurrentUser();
+            if (!user || !window.authManager.hasRole('super_admin')) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Update user name in sidebar
+            document.getElementById('userName').textContent = user.name;
+        });
+    </script>
+</body>
+</html>

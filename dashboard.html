@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Grace Community Church</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="bg-white shadow-lg w-64 flex-shrink-0" id="sidebar">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <i class="fas fa-church text-2xl text-blue-600"></i>
+                    <span class="ml-2 text-xl font-bold text-gray-900">Grace Church</span>
+                </div>
+            </div>
+            
+            <nav class="mt-8">
+                <div class="px-6 space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a href="attendance.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-calendar-check mr-3"></i>
+                        Attendance
+                    </a>
+                    <a href="announcements.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-bullhorn mr-3"></i>
+                        Announcements
+                    </a>
+                    <a href="members.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-users mr-3"></i>
+                        Members
+                    </a>
+                    <a href="reports.html" class="flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">
+                        <i class="fas fa-chart-bar mr-3"></i>
+                        Reports
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="absolute bottom-0 w-64 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-900">John Doe</p>
+                        <p class="text-xs text-gray-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
+                        <button id="sidebarToggle" class="text-gray-500 hover:text-gray-600 lg:hidden">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h1 class="ml-4 text-2xl font-semibold text-gray-900">Dashboard</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-bell text-xl"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-cog text-xl"></i>
+                        </button>
+                        <a href="index.html" class="text-gray-500 hover:text-gray-600">
+                            <i class="fas fa-sign-out-alt text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+                <div class="container mx-auto px-6 py-8">
+                    <!-- Statistics Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-users text-blue-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Total Members</p>
+                                    <p class="text-2xl font-semibold text-gray-900">1,247</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+12%</span>
+                                <span class="text-gray-500 text-sm">from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-calendar-check text-green-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Present Today</p>
+                                    <p class="text-2xl font-semibold text-gray-900">342</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+8%</span>
+                                <span class="text-gray-500 text-sm">from last week</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-red-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-user-times text-red-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Absent Today</p>
+                                    <p class="text-2xl font-semibold text-gray-900">89</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-red-600 text-sm font-medium">-3%</span>
+                                <span class="text-gray-500 text-sm">from last week</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
+                                        <i class="fas fa-user-plus text-purple-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">New Visitors</p>
+                                    <p class="text-2xl font-semibold text-gray-900">23</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-600 text-sm font-medium">+15%</span>
+                                <span class="text-gray-500 text-sm">this month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <!-- Attendance Trend Chart -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Attendance Trend</h3>
+                            <div class="h-64">
+                                <canvas id="attendanceChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Ministry Distribution -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Ministry Distribution</h3>
+                            <div class="h-64">
+                                <canvas id="ministryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Recent Members -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-900">Recent Members</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-blue-600"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                                            <p class="text-sm text-gray-500">Joined 2 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-green-600"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-900">Michael Chen</p>
+                                            <p class="text-sm text-gray-500">Joined 5 days ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-purple-600"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-900">Emily Rodriguez</p>
+                                            <p class="text-sm text-gray-500">Joined 1 week ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-900">Quick Actions</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <a href="attendance.html" class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition duration-200">
+                                        <i class="fas fa-calendar-check text-blue-600 mr-3"></i>
+                                        <span class="text-sm font-medium text-gray-900">Mark Attendance</span>
+                                    </a>
+                                    <a href="announcements.html" class="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition duration-200">
+                                        <i class="fas fa-bullhorn text-green-600 mr-3"></i>
+                                        <span class="text-sm font-medium text-gray-900">Create Announcement</span>
+                                    </a>
+                                    <a href="members.html" class="flex items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition duration-200">
+                                        <i class="fas fa-user-plus text-purple-600 mr-3"></i>
+                                        <span class="text-sm font-medium text-gray-900">Add New Member</span>
+                                    </a>
+                                    <a href="reports.html" class="flex items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition duration-200">
+                                        <i class="fas fa-download text-orange-600 mr-3"></i>
+                                        <span class="text-sm font-medium text-gray-900">Export Report</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Attendance Trend Chart
+        const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+        new Chart(attendanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Attendance',
+                    data: [320, 350, 380, 340, 390, 420],
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Ministry Distribution Chart
+        const ministryCtx = document.getElementById('ministryChart').getContext('2d');
+        new Chart(ministryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Worship', 'Youth', 'Children', 'Outreach', 'Admin'],
+                datasets: [{
+                    data: [35, 25, 20, 15, 5],
+                    backgroundColor: [
+                        'rgb(59, 130, 246)',
+                        'rgb(16, 185, 129)',
+                        'rgb(245, 158, 11)',
+                        'rgb(239, 68, 68)',
+                        'rgb(139, 92, 246)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
