@@ -347,9 +347,14 @@ class ChurchApp {
 
     // Setup Event Listeners
     setupEventListeners() {
-        document.addEventListener('DOMContentLoaded', () => {
+        // Initialize immediately if DOM is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.initializeApp();
+            });
+        } else {
             this.initializeApp();
-        });
+        }
 
         // Login form handler
         document.addEventListener('submit', (e) => {
@@ -365,12 +370,31 @@ class ChurchApp {
 
     // Handle Login Click
     async handleLoginClick() {
-        const form = document.getElementById('loginForm');
-        const formData = new FormData(form);
-        const email = formData.get('email');
-        const password = formData.get('password');
-        
-        await this.handleLogin({ target: form });
+        try {
+            console.log('Login button clicked');
+            const form = document.getElementById('loginForm');
+            if (!form) {
+                console.error('Login form not found');
+                this.showNotification('Login form not found. Please refresh the page.', 'error');
+                return;
+            }
+            
+            const formData = new FormData(form);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            console.log('Login attempt:', { email, password: '***' });
+            
+            if (!email || !password) {
+                this.showNotification('Please enter both email and password.', 'error');
+                return;
+            }
+            
+            await this.handleLogin({ target: form });
+        } catch (error) {
+            console.error('Login click error:', error);
+            this.showNotification('Login failed. Please try again.', 'error');
+        }
     }
 
     // Handle Login
@@ -716,9 +740,12 @@ class AuthManager {
 
     async login(email, password) {
         try {
+            console.log('AuthManager.login called with:', { email, password: '***' });
+            
             // First try Firebase Auth if available
             if (this.database.auth) {
                 try {
+                    console.log('Trying Firebase authentication...');
                     const userCredential = await this.database.auth.signInWithEmailAndPassword(email, password);
                     const user = userCredential.user;
                     
@@ -727,22 +754,30 @@ class AuthManager {
                     if (userResult.success) {
                         this.currentUser = userResult.user;
                         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+                        console.log('Firebase login successful:', this.currentUser);
                         return { success: true, user: this.currentUser };
                     }
                 } catch (firebaseError) {
                     console.log('Firebase auth failed, trying local users:', firebaseError);
                 }
+            } else {
+                console.log('Firebase auth not available, using local users');
             }
 
             // Fallback to predefined users
+            console.log('Trying local authentication...');
             const users = this.getPredefinedUsers();
+            console.log('Available users:', users.map(u => ({ email: u.email, role: u.role })));
+            
             const user = users.find(u => u.email === email && u.password === password);
             
             if (user) {
+                console.log('Local login successful:', user);
                 this.currentUser = user;
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 return { success: true, user: user };
             } else {
+                console.log('No matching user found');
                 return { success: false, message: 'Invalid credentials' };
             }
         } catch (error) {
@@ -829,3 +864,17 @@ const app = new ChurchApp();
 
 // Make app globally available
 window.app = app;
+
+// Debug: Check if app is available
+console.log('App initialized:', app);
+console.log('App methods available:', Object.getOwnPropertyNames(Object.getPrototypeOf(app)));
+
+// Test function for debugging
+window.testLogin = function() {
+    console.log('Testing login...');
+    if (window.app && window.app.handleLoginClick) {
+        console.log('App and handleLoginClick method found');
+    } else {
+        console.error('App or handleLoginClick method not found');
+    }
+};
