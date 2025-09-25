@@ -492,7 +492,10 @@ class ChurchApp {
                 dashboardUrl = 'index.html';
         }
 
-        window.location.href = dashboardUrl;
+        // Only redirect if not already on the correct page
+        if (!window.location.pathname.includes(dashboardUrl)) {
+            window.location.href = dashboardUrl;
+        }
     }
 
     // Initialize App
