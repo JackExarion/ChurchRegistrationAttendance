@@ -233,7 +233,7 @@ class ChurchApp {
                     <button type="button" onclick="app.hideLogin()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
                         Cancel
                     </button>
-                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                    <button type="button" onclick="app.handleLoginClick()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                         Login
                     </button>
                 </div>
@@ -312,7 +312,7 @@ class ChurchApp {
                     <button type="button" onclick="app.hideRegister()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
                         Cancel
                     </button>
-                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                    <button type="button" onclick="app.handleRegisterClick()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                         Register
                     </button>
                 </div>
@@ -363,6 +363,16 @@ class ChurchApp {
         });
     }
 
+    // Handle Login Click
+    async handleLoginClick() {
+        const form = document.getElementById('loginForm');
+        const formData = new FormData(form);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        
+        await this.handleLogin({ target: form });
+    }
+
     // Handle Login
     async handleLogin(event) {
         const formData = new FormData(event.target);
@@ -383,6 +393,24 @@ class ChurchApp {
             this.showNotification('Login failed. Please try again.', 'error');
             console.error('Login error:', error);
         }
+    }
+
+    // Handle Register Click
+    async handleRegisterClick() {
+        const form = document.getElementById('registerForm');
+        const formData = new FormData(form);
+        const userData = {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            ministry: formData.get('ministry'),
+            role: formData.get('role'),
+            password: formData.get('password'),
+            confirmPassword: formData.get('confirmPassword')
+        };
+
+        await this.handleRegister({ target: form });
     }
 
     // Handle Registration
