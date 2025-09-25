@@ -84,46 +84,7 @@ class ChurchApp {
         </div>
     </section>
 
-    <!-- Announcements Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Latest Announcements</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition duration-200">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-red-100 p-2 rounded-full">
-                            <i class="fas fa-exclamation text-red-600"></i>
-                        </div>
-                        <span class="ml-3 text-sm text-gray-500">December 15, 2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Christmas Service Schedule</h3>
-                    <p class="text-gray-600">Join us for our special Christmas services on December 24th and 25th. Services will be held at 6:00 PM and 10:00 AM respectively.</p>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition duration-200">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-100 p-2 rounded-full">
-                            <i class="fas fa-users text-green-600"></i>
-                        </div>
-                        <span class="ml-3 text-sm text-gray-500">December 10, 2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">New Member Orientation</h3>
-                    <p class="text-gray-600">Welcome our new members! Orientation session will be held this Sunday after the main service in the fellowship hall.</p>
-                </div>
-                
-                <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition duration-200">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 p-2 rounded-full">
-                            <i class="fas fa-heart text-blue-600"></i>
-                        </div>
-                        <span class="ml-3 text-sm text-gray-500">December 8, 2024</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Community Outreach Program</h3>
-                    <p class="text-gray-600">We're organizing a community outreach program to help local families in need. Volunteers are welcome to join us this Saturday.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Features Section -->
     <section class="py-16 bg-gray-50">

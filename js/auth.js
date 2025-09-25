@@ -112,36 +112,6 @@ class AuthManager {
                 ministry: 'Administration',
                 status: 'active',
                 joinDate: '2020-01-15'
-            },
-            {
-                id: 2,
-                name: 'Sarah Johnson',
-                email: 'admin@gracechurch.com',
-                password: 'admin123',
-                role: this.roles.ADMIN,
-                ministry: 'Youth',
-                status: 'active',
-                joinDate: '2021-03-20'
-            },
-            {
-                id: 3,
-                name: 'Michael Chen',
-                email: 'member@gracechurch.com',
-                password: 'member123',
-                role: this.roles.MEMBER,
-                ministry: 'Worship',
-                status: 'active',
-                joinDate: '2022-06-10'
-            },
-            {
-                id: 4,
-                name: 'Emily Rodriguez',
-                email: 'emily@gracechurch.com',
-                password: 'member123',
-                role: this.roles.MEMBER,
-                ministry: 'Outreach',
-                status: 'active',
-                joinDate: '2023-01-05'
             }
         ];
     }
